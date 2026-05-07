@@ -98,9 +98,19 @@ if st.button("Predict Churn"):
 
     st.subheader("Prediction Result")
 
-    if prediction == 1:
-        st.error("Prediction: Customer is likely to churn")
-    else:
-        st.success("Prediction: Customer is not likely to churn")
-
     st.write(f"Churn probability: **{probability:.2%}**")
+
+    st.progress(probability)
+
+    if probability >= 0.70:
+        risk_level = "High Risk"
+        st.error("Prediction: Customer is likely to churn")
+        st.error(f"Risk Level: {risk_level}")
+    elif probability >= 0.40:
+        risk_level = "Medium Risk"
+        st.warning("Prediction: Customer may churn")
+        st.warning(f"Risk Level: {risk_level}")
+    else:
+        risk_level = "Low Risk"
+        st.success("Prediction: Customer is not likely to churn")
+        st.success(f"Risk Level: {risk_level}")
